@@ -13,7 +13,7 @@ var {
   TouchableHighlight,
   TouchableNativeFeedback,
   View,
-  ActivityIndicatorIOS
+  ActivityIndicator
 } = ReactNative;
 
 //var Text = React.Text;
@@ -73,7 +73,7 @@ class Login extends React.Component{
 					onKeyPress={(event) => {
 				  		console.log('username: '+this.state.username);
 				  	}}
-				  	/>
+			  	/>
 				
 				{/*   Weird thing: if you use secureTextEntry='true' it works but complains it should be boolean.
 						  React expects booleans to be surrounded by braces like above.
@@ -87,9 +87,8 @@ class Login extends React.Component{
 
 				{errorCtrl}
 
-				<ActivityIndicatorIOS animating={this.state.showProgress} size='large' style={styles.loader}/>	  
+				<ActivityIndicator animating={this.state.showProgress} size='large' style={styles.loader}/>	  
 			</View>
-			// <Text style={{color: 'red'}}>Hello</Text>
 			);
 	}
 	focusPassword(){
@@ -102,7 +101,7 @@ class Login extends React.Component{
 	onLoginPressed(){
 		console.log('Attempting to login with username: '+this.state.username);
 		this.setState({showProgress: true});
-		var authService = require('./authService');
+		var authService = require('./AuthService');
 		authService.login({
 			username: this.state.username,
 			password: this.state.password

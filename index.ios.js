@@ -9,22 +9,47 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ActivityIndicator
 } from 'react-native';
 
 var Login = require('./login.js');
+var AuthService = require('./AuthService');
 
 class GithubBrowser extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {isLoggedIn: false};
+    this.state = {
+      isLoggedIn: false,
+      checkingAuth: true };
+
     this.onLogin = this.onLogin.bind(this); // <- binding to this is necessary in ES6
     console.log(this.state);
   }
 
+  componentDidMount() {
+     AuthService.getAuthInfo((err, authInfo)=> {
+      console.log('componentDidMount, authInfo: ', authInfo);
+      console.log('err: ',err);
+      this.setState({
+        checkingAuth: false,
+        isLoggedIn: authInfo != null
+      })
+    }); 
+  }
+
   render() {
-    var msg = 'Welcome to Github Browser.';
+    if(this.state.checkingAuth){
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator
+            animating={true}
+            size='large'
+            style={styles.loader} />
+        </View>
+        )
+    }
     if(this.state.isLoggedIn){      
       return (
         <View style={styles.container}>
