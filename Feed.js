@@ -109,19 +109,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     padding: 10,
-    paddingTop: 20
+    paddingTop: 60
   },
   container: {
+    paddingTop: 20,
     flex: 1,
     justifyContent: 'center'
   },
   loader: {
     // none
   },
-  // row: {
-  //   color: '#333',
-  //   alignSelf: 'center'
-  // }
   row: {
     flex: 1,
     flexDirection: 'row',

@@ -14,9 +14,21 @@ var {
 class PushPayload extends React.Component{
   constructor(props){
     super(props);
+    var ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 != r2
+    });
     this.state = {
-      pushEvent: props.pushEvent
+      pushEvent: props.pushEvent,
+      dataSource: ds.cloneWithRows(props.pushEvent.payload.commits)
     }
+  }
+
+  renderRow(rowData) {
+    return (
+      <View style={styles.commit}>
+        <Text>{rowData.sha.substring(0,6)} - {rowData.message} </Text>
+      </View>
+    )    
   }
 
   render() {
@@ -37,6 +49,8 @@ class PushPayload extends React.Component{
           }
           )() }  
         </Text>
+        <ListView dataSource={this.state.dataSource}
+        renderRow={this.renderRow.bind(this)} />
 
       </View>
     )
@@ -59,6 +73,10 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
     fontSize: 20
+  },
+  commit: {
+    flex: 1,
+    justifyContent: 'center'
   }
   
 });
