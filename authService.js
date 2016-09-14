@@ -13,25 +13,19 @@ class AuthService {
 			if(!val)
 				return callback();
 
-			var authValue = val[0][1];
-			var userValue = val[1][1];
+			var zippedObj = _.fromPairs(val);
+			console.log(zippedObj);
 
-			// why can I not get the values using the zipObject approach as shown in the demo?
-			// var zippedObj = _.zipObject(val);
-			//console.log(zippedObj);
-			//console.log(zippedObj[authKey]);  <- this is undefined?
-
-			if(!authValue)//!zippedObj[authKey])
+			if(!zippedObj[authKey])  // authValue
 				return callback();
-			console.log('foo');
 			
 			var authInfo = {
 				header: {
-					Authorization: 'Basic ' + authValue //zippedObj[authKey]
+					Authorization: 'Basic ' + zippedObj[authKey]  // authValue
 				},
-				user: JSON.parse(userValue)//zippedObj[userKey])
+				user: JSON.parse(zippedObj[userKey])  // userValue)
 			}
-			console.log(authInfo);
+			//console.log(authInfo);
 			return callback(null, authInfo);
 		})
 	}

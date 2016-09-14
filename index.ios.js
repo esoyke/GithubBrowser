@@ -15,6 +15,7 @@ import {
 
 var Login = require('./login.js');
 var AuthService = require('./AuthService');
+var AppContainer = require('./AppContainer');
 
 class GithubBrowser extends Component {
 
@@ -30,8 +31,7 @@ class GithubBrowser extends Component {
 
   componentDidMount() {
      AuthService.getAuthInfo((err, authInfo)=> {
-      console.log('componentDidMount, authInfo: ', authInfo);
-      console.log('err: ',err);
+      //console.log('componentDidMount, authInfo: ', authInfo);
       this.setState({
         checkingAuth: false,
         isLoggedIn: authInfo != null
@@ -52,9 +52,7 @@ class GithubBrowser extends Component {
     }
     if(this.state.isLoggedIn){      
       return (
-        <View style={styles.container}>
-          <Text style={styles.welcome}>Logged in</Text>
-        </View>
+        <AppContainer/>
         )
     }
     else{
